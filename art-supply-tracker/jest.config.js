@@ -7,9 +7,12 @@ module.exports = {
   // moduleNameMapper: {
   //   '\.(css|styl|stylus)$': 'identity-obj-proxy', // Mock CSS modules
   // },
+  // moduleNameMapper: {
+  //   "/.(css|styl|stylus)$/": "identity-obj-proxy"
+  // },
+  // resolver: undefined,
   moduleNameMapper: {
-    "/.(css|styl|stylus)$/": "identity-obj-proxy"
+    '\\.css$': 'identity-obj-proxy'
   },
-  resolver: undefined,
   testPathIgnorePatterns: ['/node_modules/', '/dist/'], // Ignore node_modules and dist folders
 };

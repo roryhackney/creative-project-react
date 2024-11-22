@@ -1,12 +1,11 @@
-// import React from 'react';
+import React from 'react';
 import { render } from '@testing-library/react';
 import App from '../components/App';
 
+//check that the App renders child components/content
 test('renders App component', () => {
-  const { container } = render(<App />);
-  
-  // Check if the App component renders child components correctly
-  expect(container.querySelector('app')).toBeInTheDocument();
-  // expect(container.querySelector('.menu')).toBeInTheDocument();
-  // expect(container.querySelector('.order')).toBeInTheDocument();
+  render(<App/>);
+  expect(document.querySelector('main')).toBeInTheDocument();
+  expect(document.querySelector('header')).toBeInTheDocument();
+  expect(document.querySelector('footer')).toBeInTheDocument();
 });
