@@ -127,6 +127,7 @@ form {
     flex-direction: column;
     align-items: center;
     background-color: var(--offwhite);
+    width: 90%;
 }
 
 label, fieldset {

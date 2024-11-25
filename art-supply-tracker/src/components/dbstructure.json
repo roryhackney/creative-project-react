@@ -1,0 +1,143 @@
+//each user has their own tree of categories
+//how to ensure names are unique?
+///auth db will track email, password, id, displayName, photoUrl
+
+//tasks
+
+//How to sanitize user input? Limit to A-Za-z0-9?
+//How to upload/shrink/crop/store images (profile, supply photo, supply swatch)
+
+//Add Art Supply
+//Retrieve user categories hierarchy and display in form
+//Retrieve properties for category and add input fields for each
+//eg Marker -> Color, ....
+//Validate properties input (property may/not have pattern)
+//Add to user's supplies (insert)
+//Upload/save images eg of art supply, demo swatch
+//Ensure props are consistent across categories
+USER -> CAT -> SUBCATS, PROPS -> TYPE, PATTERN
+PROPS -> TYPE, PATTERN
+check user props match something in system props
+Need: category hierarchy, category props, props type/pattern, user supplies
+
+//Display user's supplies
+//Retrieve user's supplies, sorted by category, then name
+//Options to filter by properties (how?), sort by properties, values, other fields (?)
+USER -> CAT -> SUBCAT -> SUPPLIES, PROPS
+PROPS -> TYPE, PATTERN, USERS -> {userId: true, userId: true}
+//check user props match something in system props
+//should system props list which users use it so only relevant props are option?
+Need: category names that contain supplies, user supplies, props
+
+//Edit user's supplies
+//Change category (but this would change props - maybe warning saying which props would be removed from the supply?)
+//Change name
+//Change quantity
+//Change brand
+//Change props
+Need: category props type/pattern, supplies
+
+//Wishlist
+//Add existing supply to wishlist
+//Remove from wishlist
+//Add new supply to wishlist
+USER - Categories - Props, Supplies, Wishlist
+Need: categories -> wishlist
+
+//Account
+//Add user image (how to store?)
+//Update email
+//Verify email
+//Update display name
+//Reset password
+//Built into Firebase Auth
+
+//System Settings
+//Create a new category (how to ensure name is not being used already?)
+//Delete a category (prevented if supplies exist under it)
+//Change category name, props (force update of supplies), parent category
+
+//Create a new property
+//Rename
+//Change type, pattern (force update of supplies)
+//Delete a property (warn this deletes from all supplies)
+
+--------------------------------------------------
+That was too complicated and I got confused. Starting over just with core features.
+
+//ADD ART SUPPLY
+//Display Category Hierarchy
+//Select one
+//Add Cat props to form
+//Select another
+//Remove/add Cat props to form
+//Enter data
+//Save -> Validate using type/pattern of props of category
+//Check that name is unique for that category
+//Insert into database
+//SET user/supplies/category/supplyName: {propValues}
+//You will need: user (from Auth), category hierarchy, category props, props validation, check that name does not exist in that category
+
+//DISPLAY ART SUPPLIES
+//GET userId/supplies
+//for each supply, add row: name, brand, qty ... prop1, prop2, prop3
+//To filter: MUST INCLUDE prop x, prop/field x must have value y, ...
+//To sort: initially by category, then name, option to sort by props (if no value for that prop, at bottom)
+//You will need: supplies: category -> supply1, supply2 -> qty, location, brand, prop1 -> "value"
+
+//PROFILE SETTINGS
+
+//CREATE CATEGORY
+//Display hierarchy
+//Get name and desired parent
+//Get desired properties
+//Check that name not already in parent
+//Insert into parent
+//You will need: available properties, category hierarchy
+
+USER
+    PROPERTIES
+        PROP1
+            TYPE
+            PATTERN
+        PROP2
+            TYPE
+            PATTERN
+    CATEGORIES
+        CAT1
+            PROPS
+                PROP1
+                    TYPE
+                    PATTERN
+                PROP2
+                    TYPE
+                    PATTERN
+            CAT2
+                PROPS
+                    PROP1
+                        TYPE
+                        PATTERN
+        CAT3
+            ...
+        CAT4
+            ...
+    SUPPLIES
+        CAT1
+            SUPP1
+                QTY
+                LOCATION
+                BRAND
+                PROPS
+                    PROP1: VALUE,
+                    PROP2: VALUE
+            SUPP2
+                ...
+        CAT2
+            SUPP3
+                ...
+    WISHLIST
+        CAT1
+            SUPP4
+                BRAND
+                LINK
+                PROPS
