@@ -1,11 +1,15 @@
 import React, {createRef} from "react";
-import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
-import { firebaseApp } from "../firebase";
+import {signInWithEmailAndPassword} from "firebase/auth";
+import { auth } from "../firebase";
+import {useNavigate} from "react-router-dom";
 
-const Login = (props) => {
+const Login = () => {
     //use refs instead of input.value
     const emailRef = createRef();
     const passwordRef = createRef();
+
+    //for redirecting after successful login
+    const nav = useNavigate();
 
     /**
      * Checks all form fields for validity before submitting
@@ -61,13 +65,10 @@ const Login = (props) => {
      */
     const login = (event) => {
         event.preventDefault();
-        console.log("called login");
-        const auth = getAuth(firebaseApp);
         signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
         .then((userCred) => {
-            const user = userCred.user;
-            console.log(user);
-            console.log("Successfully logged in, next update current user and redirect");
+            console.log(userCred.user);
+            nav("/customize");
         }).catch((error) => {
             const passErr = document.getElementById("password-error");
             if (error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
@@ -77,15 +78,15 @@ const Login = (props) => {
                 passErr.innerText = "Too many login attempts. Please try again later.";
             } else {
                 passErr.innerText = "Unable to login. Please try again later.";
-                // console.log(error);
             }
+            //prevent submit going through
             return false;
         })
     }
 
     return (
         <main>
-        <h2><span>Login to</span>your art supply tracker!</h2>
+        <h2><span>Login to</span>your Art Supply Tracker!</h2>
         <a href="TODO: implement google login">Google Login</a>
         <form onSubmit={login}>
             <label htmlFor="email">Email</label>

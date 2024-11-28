@@ -1,8 +1,8 @@
 import React, {createRef} from "react";
-import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
-import { firebaseApp } from "../firebase";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import { firebaseApp, auth } from "../firebase";
 
-const Register = (props) => {
+const Register = () => {
     const emailRef = createRef();
     const passwordRef = createRef();
 
@@ -50,7 +50,6 @@ const Register = (props) => {
      */
     const register = (event) => {
         event.preventDefault();
-        const auth = getAuth(firebaseApp);
         createUserWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
         .then((userCred) => {
             //signed up and logged in
@@ -76,7 +75,7 @@ const Register = (props) => {
 
     return (
         <main>
-        <h2><span>Sign Up for</span>your art supply tracker!</h2>
+        <h2><span>Sign up for</span>the Art Supply Tracker!</h2>
         <a href="">Google Sign Up</a>
         <form method="POST" id="register-form" onSubmit={register}>
             <label htmlFor="email">Email</label>

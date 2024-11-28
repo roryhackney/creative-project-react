@@ -65,6 +65,7 @@ nav ul {
     margin: 0;
     padding: 0;
     font-size: 1.25rem;
+    flex-wrap: wrap;
 }
 
 nav li {
@@ -74,6 +75,7 @@ nav li {
     border-radius: 10px;
     min-width: 75px;
     min-width: fit-content;
+    margin: 5px;
 }
 
 nav li a {
@@ -136,8 +138,10 @@ label, fieldset {
 
 fieldset {
     box-sizing: border-box;
-    border: 1px solid var(--yellow);
-    width: 100%;
+    border: 1px solid var(--gold);
+    border-radius: 25px;
+    width: 600px;
+    max-width: 100%;
     margin: 20px;
     background-color: var(--offwhite-light);
 }
@@ -146,14 +150,14 @@ fieldset label {
     font-size: 1rem;
 }
 
-input, textarea {
+input[type=text], textarea {
     border-radius: 50px;
     text-align: center;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid var(--gold-dark);
-    max-width: 600px;
-    width: 100%;
+    max-width: 100%;
+    width: 600px;
     box-sizing: border-box;
     margin-bottom: 10px;
 }
@@ -167,7 +171,6 @@ form span, #error {
 form button, #profile span, .button {
     padding: 10px;
     border-radius: 10px;
-    min-width: 75px;
     width: fit-content;
     margin: 5px;
     color: var(--black);
@@ -240,10 +243,10 @@ form select option.selected {
     background-color: var(--blue-dark);
 }
 
-.special-button, .special-button.pink {
-    --dark: rgb(213, 145, 145);
-    --light: rgb(255, 220, 226);
-    --main: rgb(255, 196, 205);
+.special-button {
+    --main: rgb(166, 166, 248);
+    --light: rgb(207, 216, 255);
+    --dark: rgb(142, 127, 203);
     border-radius: 0;
     background-color: var(--main);
     border-width: 5px;
@@ -261,10 +264,16 @@ form select option.selected {
     border-color: var(--dark) var(--light) var(--light) var(--dark);
 }
 
-.special-button.blue {
-    --main: rgb(166, 166, 248);
-    --light: rgb(207, 216, 255);
-    --dark: rgb(142, 127, 203);
+.special-button.pink {
+    --dark: rgb(213, 145, 145);
+    --light: rgb(255, 220, 226);
+    --main: rgb(255, 196, 205);
+}
+
+.special-button.purple {
+    --main: rgb(221, 185, 250);
+    --light: rgb(244, 212, 255);
+    --dark: rgb(184, 148, 212);
 }
 
 .special-button.gold {
@@ -277,6 +286,12 @@ form select option.selected {
     --main: rgb(176, 176, 176);
     --light: var(--gray-light);
     --dark: var(--gray-dark);
+}
+
+.special-button.green {
+    --main: rgb(166, 248, 170);
+    --light: rgb(221, 255, 213);
+    --dark: rgb(130, 203, 140);
 }
 
 /*FOOTER*/
@@ -329,8 +344,8 @@ footer a {
 }
 
 #customize-page img {
-    width: 100%;
-    max-width: 500px;
+    width: 500px;
+    max-width: 100%;
     height: auto;
     border-radius: 50%;
 }
@@ -339,19 +354,27 @@ footer a {
     opacity: 0.5;
 }
 
-#customize-page > div {
+#customize-page form {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    max-width: 100%;
-    padding: 0 20px;
 }
 
-#customize-page form {
-    width: 100%;
-    max-width: 500px;
-    margin: 20px;
+#customize-page form div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    max-width: 100%;
+    width: fit-content;
+}
+
+#customize-page form .input-with-button {
+    display: flex;
+    flex-direction: row;
+    max-width: 600px;
 }
 
 #customize-page fieldset div {
@@ -368,15 +391,15 @@ footer a {
     text-align: left;
 }
 
-#customize-page input[type=checkbox] {
-    width: fit-content;
-}
-
 #profile {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+} */
+
+#customize-page input[type=checkbox] {
+    width: fit-content;
 }
 
 /*TABLET*/

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Home = (props) => {
+const Home = () => {
     document.title = "Home | Art Supply Tracker";
     return (
         <main id="customize-page">

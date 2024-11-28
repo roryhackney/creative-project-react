@@ -1,9 +1,9 @@
 import React from "react";
 
-const About = (props) => {
+const About = () => {
     return (
         <main id="main-page">
-            <h2><span>About</span> the art supply tracker!</h2>
+            <h2><span>About</span>the Art Supply Tracker!</h2>
             <p>Are your closets <strong>filled</strong> with art supplies? Are your pen holders overflowing? Did you just <em>buy art supplies</em> and then <span>realize you already had them at home</span>?</p>
             <p>(It's fine, you deserve a little treat.)</p>
             <div className="star">

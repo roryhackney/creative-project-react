@@ -1,19 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 import React from 'react';
-import {useEffect, useState } from "react";
-import {onAuthStateChanged, signOut} from "firebase/auth";
+import { useState } from "react";
+import {onAuthStateChanged} from "firebase/auth";
 import {auth } from "../firebase";
 
-import Home from "./Home";
-import About from "./About";
-import NotFound from './NotFound';
-import Logout from "./Logout";
-import Login from "./Login";
-import Register from "./Register";
+import AppRoutes from "./AppRoutes";
 
-const App = (props) => {
+const App = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     
     onAuthStateChanged(auth, (user) => {
@@ -27,26 +22,16 @@ const App = (props) => {
         }
     })
 
-    const logout = () => {
-        auth.signOut();
-    }
-
     return (
         <React.StrictMode>
         <BrowserRouter>
             <Header isLoggedIn={isLoggedIn}/>
-            <Routes>
-                <Route path="/" element={<Home/>}></Route>
-                <Route path="/about" element={<About/>}></Route>
-                <Route path="/logout" element={<Logout logout={logout}/>}></Route>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/register" element={<Register/>}/>
-                <Route path="*" element={<NotFound/>}></Route>
-            </Routes>
+            <AppRoutes isLoggedIn={isLoggedIn}/>
         </BrowserRouter>
         <Footer />
         </React.StrictMode>
     );
+    
 }
 
 export default App;
