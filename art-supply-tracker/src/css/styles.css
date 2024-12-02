@@ -122,6 +122,11 @@ h2 span {
     display: block;
 }
 
+h3 {
+    font-size: 2rem;
+    font-family: "Leckerli One", cursive;
+}
+
 form {
     border: 1px solid var(--yellow);
     padding: 20px;
@@ -134,6 +139,10 @@ form {
 
 label, fieldset {
     font-size: 1.25rem;
+}
+
+label {
+    padding-top: 15px;
 }
 
 fieldset {
@@ -150,7 +159,7 @@ fieldset label {
     font-size: 1rem;
 }
 
-input[type=text], textarea {
+input[type=text], input[type=password], input[type="number"], textarea {
     border-radius: 50px;
     text-align: center;
     padding: 10px;
@@ -171,6 +180,7 @@ form span, #error {
 form button, #profile span, .button {
     padding: 10px;
     border-radius: 10px;
+    min-width: 100px;
     width: fit-content;
     margin: 5px;
     color: var(--black);
@@ -243,6 +253,12 @@ form select option.selected {
     background-color: var(--blue-dark);
 }
 
+form .input-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .special-button {
     --main: rgb(166, 166, 248);
     --light: rgb(207, 216, 255);
@@ -292,6 +308,10 @@ form select option.selected {
     --main: rgb(166, 248, 170);
     --light: rgb(221, 255, 213);
     --dark: rgb(130, 203, 140);
+}
+
+.green {
+    color: rgb(25, 177, 45);
 }
 
 /*FOOTER*/
@@ -375,6 +395,7 @@ footer a {
     display: flex;
     flex-direction: row;
     max-width: 600px;
+    align-items: baseline;
 }
 
 #customize-page fieldset div {
@@ -400,6 +421,11 @@ footer a {
 
 #customize-page input[type=checkbox] {
     width: fit-content;
+}
+
+#customize-page form ul {
+    list-style-type: none;
+    text-align: left;
 }
 
 /*TABLET*/

@@ -95,6 +95,37 @@ That was too complicated and I got confused. Starting over just with core featur
 //Insert into parent
 //You will need: available properties, category hierarchy
 
+--------------------------------
+TODO: scope limiting
+I would LIKE to add pages where the user can add, delete, and customize categories
+And a page for adding, deleting, and customizing properties
+And one for new art supplies
+HOWEVER I think the scope is getting TOO large.
+So, how about when the user creates an account, we insert a default structure
+Still into the given structure, since we want to upgrade the feature later
+But for now, they can just initially check/uncheck which they want in the account
+It updates it in their db
+FOR NOW, this is final and cannot be changed, displayed as disabled (grayed out) in account
+
+Name (unique id)
+Brand (string)
+Quantity (integer 0+)
+Location (string)
+Description (string)
+Quality (select Bad/Student/Artist/Pro/Perfect mapping 1-5)
+
+Size (string)
+Width (double)
+Height (double)
+Thickness (string)
+ColorFamily (select)
+ColorName (string)
+Pattern (string)
+BrandColorCode (string)
+BrandColorName (string)
+TipType (string)
+Material (string)
+
 USER
     PROPERTIES
         PROP1

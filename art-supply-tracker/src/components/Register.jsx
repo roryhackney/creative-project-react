@@ -1,8 +1,12 @@
 import React, {createRef} from "react";
 import {createUserWithEmailAndPassword} from "firebase/auth";
-import { firebaseApp, auth } from "../firebase";
+import {database, auth } from "../firebase";
+import { catProps, categories as cats, properties as props } from "./SampleData";
+import { useNavigate } from "react-router-dom";
+import { ref, set } from "firebase/database";
 
 const Register = () => {
+    const nav = useNavigate();
     const emailRef = createRef();
     const passwordRef = createRef();
 
@@ -56,6 +60,7 @@ const Register = () => {
             const user = userCred.user;
             console.log(user);
             console.log("Successfully registered and signed in, next setup account");
+            setupNewUser(user);
         }).catch((error) => {
             const emailErr = document.getElementById("email-error");
             if (error.code === "auth/email-already-in-use") {
@@ -73,11 +78,25 @@ const Register = () => {
         })
     }
 
+    const setupNewUser = (user) => {
+        const refToDb = ref(database, "users/" + user.uid);
+        set(refToDb, {
+            "categories": cats,
+            "properties": props,
+            "category-properties": catProps
+        }).then(() => {
+            // console.log("Inserted user data");
+            nav("/customize");
+        }).catch((error) => {
+            // console.log("Could not save new user's db content");
+        });
+    }
+
     return (
         <main>
         <h2><span>Sign up for</span>the Art Supply Tracker!</h2>
         <a href="">Google Sign Up</a>
-        <form method="POST" id="register-form" onSubmit={register}>
+        <form id="register-form" onSubmit={register}>
             <label htmlFor="email">Email</label>
             <input type="text" name="email" id="email" ref={emailRef}/>
             <span id="email-error"></span>

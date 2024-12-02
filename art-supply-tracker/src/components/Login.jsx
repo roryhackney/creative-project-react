@@ -2,6 +2,7 @@ import React, {createRef} from "react";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import { auth } from "../firebase";
 import {useNavigate} from "react-router-dom";
+import { emailError } from "../helpers";
 
 const Login = () => {
     //use refs instead of input.value
@@ -12,31 +13,19 @@ const Login = () => {
     const nav = useNavigate();
 
     /**
-     * Checks all form fields for validity before submitting
+     * Checks email and password form fields for validity before submitting
      * @param {*} event submit button click event 
      */
     const validate = (event) => {
-        const emailValid = validateEmail();
-        const passwordValid = validatePassword();
-        if (! emailValid || ! passwordValid) event.preventDefault();
-    }
-
-    /**
-     * Checks that email is not blank or a non email
-     */
-    const validateEmail = () => {
+        //validate email
         const emailErr = document.getElementById("email-error");
-        if (emailRef.current.value === "") {
-            emailErr.innerText = "Email is required";
-            return false;
-        } else if (! /.+@.+\..+/.test(emailRef.current.value)) {
-            //don't provide hints that narrow down possible emails
-            emailErr.innerHTML = "Email not found. Would you like to <a href='/register'>register</a>?";
-            return false;
-        } else {
-            emailErr.innerText = "";
-            return true;
-        }
+        const emailValid = emailError(emailRef.current.value, emailErr);
+        
+        //validate password
+        const passwordValid = validatePassword();
+        
+        //don't process if either is invalid
+        if (! emailValid || ! passwordValid) event.preventDefault();
     }
 
     /**
@@ -67,8 +56,8 @@ const Login = () => {
         event.preventDefault();
         signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value)
         .then((userCred) => {
-            console.log(userCred.user);
-            nav("/customize");
+            // console.log(userCred.user);
+            nav("/");
         }).catch((error) => {
             const passErr = document.getElementById("password-error");
             if (error.code === "auth/invalid-credential" || error.code === "auth/wrong-password") {
