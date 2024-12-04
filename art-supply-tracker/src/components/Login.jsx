@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 import { emailError } from "../helpers";
 
 const Login = () => {
+    document.title = "Login | Art Supply Tracker";
+    
     //use refs instead of input.value
     const emailRef = createRef();
     const passwordRef = createRef();

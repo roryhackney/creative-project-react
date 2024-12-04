@@ -5,6 +5,8 @@ import ListCategories from "./ListCategories";
 import { emailError } from "../helpers";
 
 const Customize = () => {
+    document.title = "Customize | Art Supply Tracker";
+    
     //current user in state so changing user rerenders page
     const [currUser, setUser] = React.useState(auth.currentUser);
     

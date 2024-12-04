@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const TextInput = (props) => {
     return (
         <div className="input-column">
@@ -11,6 +13,12 @@ const TextInput = (props) => {
             />
         </div>
     );
+}
+
+TextInput.propTypes = {
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    changeHandler: PropTypes.func
 }
 
 export default TextInput;

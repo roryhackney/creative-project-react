@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const IntInput = (props) => {
     return (
         <div className="input-column">
@@ -12,9 +14,15 @@ const IntInput = (props) => {
                 max="999999"
                 required={props.required}
                 onChange = {props.changeHandler ? props.changeHandler : ()=>{}}
-            />;
+            />
         </div>
     );
+}
+
+IntInput.propTypes = {
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    changeHandler: PropTypes.func
 }
 
 export default IntInput;

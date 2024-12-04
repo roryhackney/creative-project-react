@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const FloatInput = (props) => {
     return (
         <div className="input-column">
@@ -11,9 +13,15 @@ const FloatInput = (props) => {
                 max="999999"
                 required={props.required}
                 onChange={props.changeHandler ? props.changeHandler : ()=>{}}
-            />;
+            />
         </div>
     );
+}
+
+FloatInput.propTypes = {
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    changeHandler: PropTypes.func
 }
 
 export default FloatInput;

@@ -16,6 +16,7 @@
     --gray-light: gainsboro;
     --yellow: yellow;
     --gold: rgb(244, 196, 75);
+    --gold-light: rgb(253, 219, 133);
     --gold-dark: goldenrod;
     --error: red;
     --blue: rgb(179, 179, 230);
@@ -417,7 +418,7 @@ footer a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-} */
+}
 
 #customize-page input[type=checkbox] {
     width: fit-content;
@@ -426,6 +427,52 @@ footer a {
 #customize-page form ul {
     list-style-type: none;
     text-align: left;
+}
+
+/*HOME*/
+#list-art-supplies {
+    text-align: left;
+}
+
+#list-art-supplies ul {
+    list-style-type: none;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+}
+
+h6 {
+    font-size: 1.1rem;
+    margin: 0;
+    padding: 5px;
+    background-color: var(--gold-light);
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-width: 4px 4px 4px 0;
+    border-style: solid;
+    border-color: var(--blue-darker);
+    width: fit-content;
+    padding-inline-start: 0;
+}
+
+.fields li {
+    background: var(--offwhite-light);
+    border-left: 4px solid var(--blue-darker);
+    text-align: center;
+}
+
+.fields p {
+    padding: 0 5px;
 }
 
 /*TABLET*/
@@ -461,6 +508,10 @@ footer a {
 
     input.medium {
         max-width: 450px;
+    }
+
+    .fields {
+        flex-direction: row;
     }
 }
 

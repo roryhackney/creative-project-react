@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {auth } from "../firebase";
 
 const Logout = () => {
+    document.title = "Logged Out | Art Supply Tracker";
     useEffect(() => {
         const logout = async () => {
             await auth.signOut();

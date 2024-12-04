@@ -1,6 +1,7 @@
 import React from "react";
 
 const About = () => {
+    document.title = "About | Art Supply Tracker";
     return (
         <main id="main-page">
             <h2><span>About</span>the Art Supply Tracker!</h2>

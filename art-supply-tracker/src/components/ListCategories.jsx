@@ -5,7 +5,7 @@ const ListCategories = () => {
 
     //ok this doesn't work and I'm not totally understanding explanations online
     //so I think I should not implement this bc I don't feel good about copying code
-    const uncheckChildren = (event) => {
+    /* const uncheckChildren = (event) => {
         if(! event.target.checked) {
             //get enclosing parent li tag
             const li = event.target.closest("li");
@@ -19,7 +19,7 @@ const ListCategories = () => {
                 console.log(sublist[index].checked);
             }
         }
-    }
+    } */
 
     const categoryHierarchyCheckboxes = (categoryObj) => {
         //create an array of li checkbox input items
@@ -34,6 +34,7 @@ const ListCategories = () => {
                 //display the key
                 <li key={key}>
                     {/* onClick={uncheckChildren} */}
+                    {/* disabled for now. TODO: allow user to customize their categories*/}
                     <input type="checkbox" name={key} id={key} defaultChecked="checked" disabled/>
                     <label htmlFor={key}>{key}</label>
                     {/* if cat[key] has child categories then call recursively*/}

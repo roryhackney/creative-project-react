@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const SelectInput = (props) => {
     const updateCurrChoice = (event) => {
         if (props.setChoice) {
@@ -26,6 +28,15 @@ const SelectInput = (props) => {
             </select>
         </div>
     );
+}
+
+SelectInput.propTypes = {
+    setChoice: PropTypes.func,
+    setCatData: PropTypes.func,
+    changeHandler: PropTypes.func,
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool.isRequired,
+    options: PropTypes.array.isRequired
 }
 
 export default SelectInput;

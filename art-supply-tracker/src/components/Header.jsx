@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -29,6 +30,10 @@ const Header = (props) => {
             </nav>
         </header>
     );
+}
+
+Header.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired
 }
 
 export default Header;

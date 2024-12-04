@@ -1,11 +1,13 @@
 import React, {createRef} from "react";
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {database, auth } from "../firebase";
-import { catProps, categories as cats, properties as props } from "./SampleData";
+import { catProps, categories as cats, properties } from "./SampleData";
 import { useNavigate } from "react-router-dom";
 import { ref, set } from "firebase/database";
 
 const Register = () => {
+    document.title = "Register | Art Supply Tracker";
+    
     const nav = useNavigate();
     const emailRef = createRef();
     const passwordRef = createRef();
@@ -82,7 +84,7 @@ const Register = () => {
         const refToDb = ref(database, "users/" + user.uid);
         set(refToDb, {
             "categories": cats,
-            "properties": props,
+            "properties": properties,
             "category-properties": catProps
         }).then(() => {
             // console.log("Inserted user data");
