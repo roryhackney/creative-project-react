@@ -40,6 +40,7 @@ const AddNew = () => {
         const fieldValue = event.target.value;
         setGeneralData(prev => ({...prev, [fieldName]: fieldValue}));
     }
+    
     //whenever a category specific input is changed, the current value is tracked
     const handleCategoryInputChange = (event) => {
         const fieldName = event.target.name;

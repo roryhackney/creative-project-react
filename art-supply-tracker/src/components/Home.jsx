@@ -1,8 +1,9 @@
 import React from "react";
 import {auth, database} from '../firebase';
 import {ref, onValue} from "firebase/database";
+import PropTypes from "prop-types";
 
-const Home = () => {
+const Home = (props) => {
     //TODO: set document.title in each page
     document.title = "Home | Art Supply Tracker";
 
@@ -12,7 +13,16 @@ const Home = () => {
     //retrieve art supplies and update state with the html nested list of supplies
     const getSupplies = () => {
         //connect to db
-        const dbRef = ref(database, "users/" + auth.currentUser.uid + "/supplies");
+        let userId;
+        //if this is being used for testing, choose the test user
+        if (props.testing === true) {
+            console.log("testing glue user");
+            userId = "LzvcxQH51cQFW4JZ9v7PURmzjGW2";
+            //if this is for real, get the current user
+        } else {
+            userId = auth.currentUser.uid;
+        }
+        const dbRef = ref(database, "users/" + userId + "/supplies");
         onValue(dbRef, (snapshot) => {
             //get the user's saved art supplies
             const data = snapshot.val();
@@ -98,5 +108,9 @@ const Home = () => {
         </main>
     );
 };
+
+Home.propTypes = {
+    testing: PropTypes.bool
+}
 
 export default Home;

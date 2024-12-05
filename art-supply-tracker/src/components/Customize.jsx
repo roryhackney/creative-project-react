@@ -2,12 +2,17 @@ import React from "react";
 import {auth} from "../firebase";
 import { onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider, sendEmailVerification, verifyBeforeUpdateEmail, updateProfile } from "firebase/auth";
 import ListCategories from "./ListCategories";
+import PropTypes from "prop-types";
 
-const Customize = () => {
+const Customize = (props) => {
     document.title = "Customize | Art Supply Tracker";
     
-    //current user in state so changing user rerenders page
-    const [currUser, setUser] = React.useState(auth.currentUser);
+    //if component is being used for testing, use demoUser
+    //if being used for the actual run, uses current user
+    //if the current user ever changes, it will be due to logout which will make this page inaccessible
+    const [currUser, setUser] = React.useState(
+        props.demoUser ? props.demoUser : auth.currentUser
+    );
 
     const [errors, setErrors] = React.useState({
         "email": "",
@@ -38,13 +43,6 @@ const Customize = () => {
     const handleClickRandom = () => {
         displayNameRef.current.value = getSillyName(sillyNames);
     }
-
-    /**
-     * When the current user is changed, updates the user state
-    */
-    onAuthStateChanged(auth, (user) => {
-        setUser(user);
-    })
 
     /**
      * Retrieves the user's profile photo url, if it exists, or placeholder image
@@ -174,10 +172,10 @@ const Customize = () => {
      * When the user edits the email field, display whether the current email is verified
      */
     const handleEmailChange = () => {
-        if (errors["isVerified"] === "Verified" && currUser.email !== emailRef.current.validEmail) {
-            setErrors(prev => ({...prev, "isVerifed": "Not Verified"}));
-        } else if (errors["isVerified"] === "Not Verified" && currUser.email === emailRef.current.value) {
-            setErrors(prev => ({...prev, "isVerifed": "Verified"}));
+        if (errors["isVerified"] == "Verified" && currUser.email !== emailRef.current.value) {
+            setErrors(prev => ({...prev, "isVerified": "Not Verified"}));
+        } else if (errors["isVerified"] == "Not Verified" && currUser.email === emailRef.current.value) {
+            setErrors(prev => ({...prev, "isVerified": "Verified"}));
         }
     }
 
@@ -218,5 +216,14 @@ const Customize = () => {
         </main>
     );
 }
+
+Customize.propTypes = {
+    demoUser: PropTypes.shape({
+        displayName: PropTypes.string,
+        emailVerified: PropTypes.bool.isRequired,
+        email: PropTypes.string.isRequired,
+        photoURL: PropTypes.string
+    })
+};
 
 export default Customize;

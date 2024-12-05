@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const Header = (props) => {
@@ -24,7 +24,7 @@ const Header = (props) => {
             <nav>
                 <ul>
                     <li className="special-button pink"><Link to="/">About</Link></li>
-                    <li className="special-button blue"><Link to="/register">Register</Link></li>
+                    <li className="special-button green"><Link to="/register">Register</Link></li>
                     <li className="special-button gold"><Link to="/login">Log In</Link></li>
                 </ul>
             </nav>

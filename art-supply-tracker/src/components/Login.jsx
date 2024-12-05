@@ -81,7 +81,7 @@ const Login = () => {
             } else if (error.code === "auth/too-many-requests") {
                 setErrors(prev => ({...prev, "password": "Too many login attempts. Please try again later."}));
             } else {
-                setErrors(prev => ({...prev, "password": "Unable to login. Please try again later."}));
+                setErrors(prev => ({...prev, "password": "Unable to login. Please try again later." + error.message}));
             }
             //prevent submit going through
             return false;
@@ -100,7 +100,7 @@ const Login = () => {
     return (
         <main>
         <h2><span>Login to</span>your Art Supply Tracker!</h2>
-        <button type="button" onClick={handleGitHubLogin}>GitHub Login</button>
+        <button type="button" class="button" onClick={handleGitHubLogin}>Sign In with GitHub</button>
         <span>{errors["github"]}</span>
         <form onSubmit={login}>
             <label htmlFor="email">Email</label>
@@ -109,7 +109,7 @@ const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" ref={passwordRef}/>
             <span>{errors["password"]}</span>
-            <button type="submit" onClick={validate}>Login</button>
+            <button id="submit" type="submit" onClick={validate}>Login</button>
         </form>
         </main>
     );

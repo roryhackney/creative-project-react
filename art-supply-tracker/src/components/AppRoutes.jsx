@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
@@ -8,7 +9,6 @@ import Login from "./Login";
 import Register from "./Register";
 import Customize from "./Customize";
 import AddNew from "./AddNew";
-import React from "react";
 
 const AppRoutes = (props) => {
     if (props.isLoggedIn) {

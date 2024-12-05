@@ -115,7 +115,7 @@ const Register = () => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" ref={passwordRef}/>
             <span>{errors["password"]}</span>
-            <button type="submit" onClick={validate}>Sign Up</button>
+            <button id="submit" type="submit" onClick={validate}>Sign Up</button>
         </form>
         </main>
     );

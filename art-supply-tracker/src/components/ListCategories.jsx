@@ -1,3 +1,4 @@
+import React from "react";
 //TODO: replace with getting categories from user db
 import {categories} from './SampleData';
 

@@ -1,7 +1,7 @@
+import React from 'react';
 import { BrowserRouter } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
-import React from 'react';
 import { useState } from "react";
 import {onAuthStateChanged} from "firebase/auth";
 import {auth } from "../firebase";
@@ -14,7 +14,7 @@ const App = () => {
     onAuthStateChanged(auth, (user) => {
         if (user && ! isLoggedIn) {
             //logged in
-            const userId = user.uid;
+            // const userId = user.uid;
             setIsLoggedIn(true);
         } else if (! user && isLoggedIn) {
             //logged out
