@@ -32,9 +32,11 @@ test('logout button changes nav to logged out', async () => {
     if (button != null) {
         //logout button exists
         expect(document.getElementById('logout-button')).toBeInTheDocument();
-        // clicking logout results in nav changing
+        // clicking logout results in going to /logout and nav changing
         fireEvent.click(button);
+        
         await waitFor(() => {
+            expect(document.title).toBe("Logged Out | Art Supply Tracker");
             expect(document.getElementById('logout-button')).not.toBeInTheDocument();
         });
     }

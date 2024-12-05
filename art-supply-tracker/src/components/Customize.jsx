@@ -1,14 +1,19 @@
 import React from "react";
 import {auth} from "../firebase";
-import { onAuthStateChanged, reauthenticateWithCredential, updateEmail, EmailAuthProvider, sendEmailVerification, verifyBeforeUpdateEmail, updateProfile } from "firebase/auth";
+import { onAuthStateChanged, reauthenticateWithCredential, EmailAuthProvider, sendEmailVerification, verifyBeforeUpdateEmail, updateProfile } from "firebase/auth";
 import ListCategories from "./ListCategories";
-import { emailError } from "../helpers";
 
 const Customize = () => {
     document.title = "Customize | Art Supply Tracker";
     
     //current user in state so changing user rerenders page
     const [currUser, setUser] = React.useState(auth.currentUser);
+
+    const [errors, setErrors] = React.useState({
+        "email": "",
+        "isVerified": currUser.emailVerified ? "Verified" : "Not Verified",
+        "displayName": ""}
+    );
     
     //form fields
     const displayNameRef = React.useRef();
@@ -38,7 +43,7 @@ const Customize = () => {
      * When the current user is changed, updates the user state
     */
     onAuthStateChanged(auth, (user) => {
-        if (user) setUser(user);
+        setUser(user);
     })
 
     /**
@@ -53,12 +58,26 @@ const Customize = () => {
         }
     }
 
+    //checks if email is valid and sets the error message to display
+    const emailError = (email) => {
+        if (email === "") {
+            setErrors((prev) => ({...prev, "email": "Email is required"}));
+            return false;
+        } else if (! /.+@.+\..+/.test(email)) {
+            setErrors((prev) => ({...prev, "email": "Please enter a valid email address"}));
+            return false;
+        } else {
+            setErrors(prev => ({...prev, "email": ""}));
+            return true;
+        }
+    }
+
     /**
      * Validates the form
      * @param {*} event submit button click event 
      */
     const validate = (event) => {
-        const validEmail = emailError(emailRef.current.value, document.getElementById("email-error"));
+        const validEmail = emailError(emailRef.current.value);
         if (! validEmail) event.preventDefault();
     }
 
@@ -70,23 +89,25 @@ const Customize = () => {
         const newEmail = emailRef.current.value;
         if (newEmail !== currUser.email) {
             verifyBeforeUpdateEmail(currUser, newEmail)
-            .then(() => console.log("Successfully updated"))
-            .catch((error) => {
-                const errorSpan = document.getElementById("email-error");
+            .then(() => 
+                {
+                    setErrors(prev => ({...prev, "email": "Successfully updated"}));
+                }
+            ).catch((error) => {
                 if (error.code === "auth/invalid-email") {
-                    errorSpan.innerText = "Please enter a valid email address";
+                    setErrors(prev => ({...prev, "email": "Please enter a valid email address"}));
                 } else if (error.code === "auth/email-already-in-use") {
                     //don't tell them another user is using it for security
-                    errorSpan.innerText = "Email cannot be used";
+                    setErrors(prev => ({...prev, "email": "Email cannot be used"}));;
                 } else if (error.code === "auth/requires-recent-login") {
                     if (reauthenticate() === true) {
                         updateUserEmail(); //should go through this time
                     } else {
-                        errorSpan.innerText = "Unable to update email, please try again";
+                        setErrors(prev => ({...prev, "email": "Unable to update email, please try again"}));
                     }
                 } else {
-                    errorSpan.innerText = "Unable to update email, please try again later";
-                    console.log("ERROR:", error.code + error.message);
+                    setErrors(prev => ({...prev, "email": "Unable to update email, please try again later"}));
+                    // console.log("ERROR:", error.code + error.message);
                 }
             })
         }
@@ -116,26 +137,22 @@ const Customize = () => {
      * Updates the user's display name if it was changed in the form
      */
     const updateDisplayName = () => {
-        console.log(currUser.displayName);
+        // console.log(currUser.displayName);
         //if blank set to null
         const newName = displayNameRef.current.value.trim() === "" ? null : displayNameRef.current.value;
         if (newName !== currUser.displayName) {
-            const displayNameErr = document.getElementById("display-name-error");
-            displayNameErr.innerText = "";
+            setErrors(prev => ({...prev, "displayName": ""}))
             //cannot replace existing display name with null
             if (newName === null) {
-                displayNameErr.innerText = "Unable to update display name. Please try again later.";
-                displayNameErr.classList.remove("green");
+                setErrors(prev => ({...prev, "displayName": "Unable to update display name. Please try again later."}));
             } else {
                 //set to new name
                 updateProfile(currUser, {displayName: newName})
                 .then(() => {
-                    displayNameErr.innerText = "Successfully updated name"
-                    displayNameErr.className = "green";
+                    setErrors(prev => ({...prev, "displayName": "Successfully updated name"}));
                 }).catch(() => {
                     //unlikely there would be an error, but just in case
-                    displayNameErr.innerText = "Unable to update display name. Please try again later.";
-                    displayNameErr.classList.remove("green");
+                    setErrors(prev => ({...prev, "displayName": "Unable to update display name. Please try again later."}));
                 })
             }
         }
@@ -154,28 +171,13 @@ const Customize = () => {
     }
 
     /**
-     * Returns a span displaying whether user's current email is verified
-     * @returns <span> html element containing verified email status
-     */
-    const initialVerifiedSpan = () => {
-        if (currUser.emailVerified) {
-            return <span id="is-verified" className="green">Verified</span>
-        } else {
-            return <span id="is-verified">Not Verified</span>
-        }
-    }
-
-    /**
      * When the user edits the email field, display whether the current email is verified
      */
     const handleEmailChange = () => {
-        const span = document.getElementById("is-verified");
-        if (span.innerText === "Verified" && currUser.email !== emailRef.current.validEmail) {
-            span.innerText = "Not Verified";
-            span.className = "";
-        } else if (span.innerText === "Not Verified" && currUser.email === emailRef.current.value) {
-            span.innerText = "Verified";
-            span.className = "green";
+        if (errors["isVerified"] === "Verified" && currUser.email !== emailRef.current.validEmail) {
+            setErrors(prev => ({...prev, "isVerifed": "Not Verified"}));
+        } else if (errors["isVerified"] === "Not Verified" && currUser.email === emailRef.current.value) {
+            setErrors(prev => ({...prev, "isVerifed": "Verified"}));
         }
     }
 
@@ -198,14 +200,14 @@ const Customize = () => {
                          ref={displayNameRef}/>
                         <button type="button" onClick={handleClickRandom}>Random</button>
                     </div>  
-                    <span id="display-name-error"></span>  
+                    <span>{errors["displayName"]}</span>  
                     <label htmlFor="email">Email</label>
                     <div>
                         <input type="text" name="email" id="email" defaultValue={currUser.email} ref={emailRef} onChange={handleEmailChange}/>
                     </div>
-                    {initialVerifiedSpan()}
+                    <span>{errors["isVerified"]}</span>
                     <span>Note: you must click the link in the verification email to update your email</span>
-                    <span id="email-error"></span>
+                    <span>{errors["email"]}</span>
                     <button type="submit" onClick={validate}>Save</button>
                     <fieldset>
                         <legend>Art Supply Categories</legend>

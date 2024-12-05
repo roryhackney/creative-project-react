@@ -8,6 +8,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Customize from "./Customize";
 import AddNew from "./AddNew";
+import React from "react";
 
 const AppRoutes = (props) => {
     if (props.isLoggedIn) {

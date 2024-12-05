@@ -39,7 +39,7 @@ const Home = () => {
                             } else {
                                 //one list item for each field
                                 return (
-                                    <li>
+                                    <li key={field}>
                                         <h6>{field}</h6>
                                         <p>{generalData[field]}</p>
                                     </li>
@@ -54,7 +54,7 @@ const Home = () => {
                             if (catData[field] === "") return null;
                             //one list item for each field
                             return (
-                                <li>
+                                <li key={field}>
                                     <h6>{field}</h6>
                                     <p>{catData[field]}</p>
                                 </li>
@@ -63,9 +63,9 @@ const Home = () => {
 
                         //one list item for each supply
                         return (
-                            <li>
+                            <li key={name}>
                                 <h5>{name}</h5>
-                                <ul class="fields">{genSections}{catSections}</ul>
+                                <ul className="fields">{genSections}{catSections}</ul>
                             </li>
 
                         );
@@ -73,7 +73,7 @@ const Home = () => {
 
                     //one list item for each category
                     return (
-                        <li>
+                        <li key={category}>
                             <h4>{category}</h4>
                             <ul>{listOfNames}</ul>
                         </li>
@@ -93,7 +93,7 @@ const Home = () => {
                 <div id="list-art-supplies">
                     <ul>{supplies}</ul>
                 </div>
-                <button type="button" class="button" onClick={getSupplies}>Load Supplies</button>
+                <button type="button" className="button" onClick={getSupplies}>Load Supplies</button>
             </section>
         </main>
     );
