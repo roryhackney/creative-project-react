@@ -106,7 +106,7 @@ const Register = () => {
     return (
         <main>
         <h2><span>Sign up for</span>the Art Supply Tracker!</h2>
-        <button type="button" onClick={handleGitHubSignup}>Sign Up with GitHub</button>
+        <button type="button" class="button" onClick={handleGitHubSignup}>Sign Up with GitHub</button>
         <span>{errors["github"]}</span>
         <form id="register-form" onSubmit={register}>
             <label htmlFor="email">Email</label>

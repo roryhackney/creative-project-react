@@ -258,6 +258,7 @@ form .input-column {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 100%;
 }
 
 .special-button {
@@ -382,7 +383,7 @@ footer a {
     justify-content: center;
 }
 
-#customize-page form div {
+#customize-page form div, section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -395,7 +396,8 @@ footer a {
 #customize-page form .input-with-button {
     display: flex;
     flex-direction: row;
-    max-width: 600px;
+    width: 600px;
+    max-width: 100%;
     align-items: baseline;
 }
 
