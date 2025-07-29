@@ -1,12 +1,15 @@
 # creative-project-react
-Remake of creative-project using React and Firebase
+The Art Supply Tracker is a personal project I’ve been working on since 2024, inspired by my desire to organize, track, and easily search for my own art supplies while out shopping. After gaining confidence developing software and programming in my CS courses, I began exploring ways to create an application to manage my art supply collection. After creating an initial UX design in Figma, I began exploring React and Firebase to develop a mobile first website during the summer.
 
-Developing a creative project for my web development course, namely an art supply tracking system, inspired by my own chaotic collection.
+After learning more about React and cloud computing in the fall of my senior year, I implemented this improved version during my web development course, improving the UX and implementing features including authentication, a database, unit tests, and dynamic forms that generate fields based on user choices. As part of the process, I was able to learn a lot about software design, developing React applications, using Node and Express, and the tradeoffs between SQL and JSON databases.
 
-To use, download the project and run <code>npm install</code> in the terminal. Run <code>cd art-supply-tracker</code>
+This project uses Firebase to handle authentication and data using a JSON database, together with React, HTML, and CSS.
+The previous version uses SQL, Node, and Express, as you can see at [creative-project](https://github.com/roryhackney/creative-project).
+
+To run the application, clone the repo and run <code>npm install</code> in the terminal. Run <code>cd art-supply-tracker</code>
 <code>npm run dev</code> and then open the displayed link or localhost:5173/.
 
-User authentication has now been implemented. You can log in, log out, and register, using email and password or GitHub authentication. Pages will be available based on authentication requirements to ensure only valid access to content.
+User authentication has been implemented. You can log in, log out, and register, using email and password or GitHub authentication. Pages will be available based on authentication requirements to ensure only valid access to content.
 ![image](https://github.com/user-attachments/assets/653a03e7-ef88-4768-a1b3-e5558fdc8e57)
 
 Once logged in, click Load Supplies on the home page and the system will display any art supplies you have in the database.
